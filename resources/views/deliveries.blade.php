@@ -137,8 +137,8 @@
                                    <div class="rating-wrap">
                                       <div class="index-rating" data-rating="{{ $totalratings }}"></div>
                                       <div class="reviewAvgCount">
-                                          <span>{{ number_format($totalratings, 1) }}</span>
-                                          <span>({{ count($reviews) }})</span>
+                                          <span>{{ number_format($totalratings , 1) }}</span>
+                                          <span>({{ count($reviews) +  str_replace(',', '', $delivery->reviews_count ) }})</span>
                                       </div>
                                   </div>
 

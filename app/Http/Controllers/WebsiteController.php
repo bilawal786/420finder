@@ -930,6 +930,8 @@ class WebsiteController extends Controller {
 
       $dispensary = Business::where('id', $id)->first();
 
+      $detail = Detail::where('business_id', $id)->first();
+
       $featured = DispenseryProduct::where('dispensery_id', $id)
           ->where('is_featured', 1)
           ->get();
@@ -969,6 +971,7 @@ class WebsiteController extends Controller {
 
       return view('dispensarysingle')
           ->with('dispensary', $dispensary)
+          ->with('detail', $detail)
           ->with('featured', $featured)
           ->with('products', $products)
           ->with('categories', $categories)

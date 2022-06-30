@@ -99,7 +99,7 @@
                                 ';
                             }
 
-                            echo " <span class='reviewCount'>(".$reviews->count().")</span>";
+                            echo " <span class='reviewCount'>(".($reviews->count() + str_replace(',', '', $delivery->reviews_count )).")</span>";
 
                         ?>
                     </ul>
@@ -706,7 +706,7 @@
                                                     <svg class="finder-icon-map-pin" width="22px" height="22px" stroke="none" viewBox="0 0 24 24"><path d="M4 9.5c0 1.563.533 3 1.4 4.25L12 22l6.6-8.25A7.271 7.271 0 0 0 20 9.5C20 5.375 16.4 2 12 2S4 5.375 4 9.5zm4 .5c0-2.2 1.8-4 4-4s4 1.8 4 4-1.8 4-4 4-4-1.8-4-4z" overflow="visible" fill="#999999"></path></svg>
                                                 </div>
 
-                                                <p>{{ $delivery->address_line_1 }}</p>
+                                                <p>{{ $delivery->address_line_1 }} {{ $delivery->city }}, {{ $delivery->state_province }}</p>
 
                                             </div>
 
@@ -809,6 +809,7 @@
                                             </div>
 
                                             {{-- DELIVERY EMAIL --}}
+                                              @if($delivery->email != null)
                                             <div class="delivery-email delivery-common">
                                                 <div class="email-icon">
                                                     <svg class="finder-icon-envelope" width="20px" height="20px" viewBox="0 0 24 24"><path fill="#999999" fill-rule="evenodd" d="M4 5h16c1.1 0 2 .79 2 1.75v.88l-10 5.74L2 7.63l.01-.88C2.01 5.79 2.9 5 4 5zM2 9.93v-2.3 2.3zm20 0l-10 5.73L2 9.93v7.32c0 .96.9 1.75 2 1.75h16c1.1 0 2-.79 2-1.75V9.92z" clip-rule="evenodd"></path></svg>
@@ -817,6 +818,7 @@
                                                 <a href="mailto:{{ $delivery->email }}">{{ $delivery->email }}</a>
 
                                             </div>
+                                              @endif
 
                                             {{-- DELIVERY LINK --}}
                                             <div class="delivery-link delivery-common">
@@ -833,7 +835,7 @@
                                                 <div class="insta-icon">
                                                     <svg class="finder-icon wm-instagram-standard" width="20px" height="20px" viewBox="0 0 24 24"><path fill="#999999" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"></path></svg>
                                                 </div>
-                                               <a href="{{ $delivery->instagram }}">
+                                               <a href="{{ $delivery->instagram??"#" }}">
                                                    @Instagram
                                                </a>
                                             </div>
@@ -843,7 +845,7 @@
                                                 <div class="twitter-icon">
                                                     <svg class="wm-icon-twitter-standard" width="20px" height="20px" viewBox="0 0 21 21"><g transform="translate(-1 -2)"><path fill="#999999" d="M22 6.8l-2.4.6c1-.5 1.5-1.2 1.8-2.1-.8.4-1.6.7-2.6.9a4.1 4.1 0 0 0-3-1.2c-1 0-2 .4-2.9 1.1a3.5 3.5 0 0 0-1 3.6 12.2 12.2 0 0 1-8.5-4 3.5 3.5 0 0 0 0 3.7c.3.6.7 1 1.3 1.4-.7 0-1.3-.2-1.9-.5 0 1 .3 1.7 1 2.4.6.7 1.4 1.2 2.3 1.3a4.6 4.6 0 0 1-1.9.1A4.2 4.2 0 0 0 8 16.7a8.5 8.5 0 0 1-6 1.6 12.9 12.9 0 0 0 10.4 1 10.7 10.7 0 0 0 5.6-4.1 10.6 10.6 0 0 0 2-6.5c.7-.5 1.4-1.2 2-2z"></path></g></svg>
                                                 </div>
-                                                <a href="https://www.instagram.com/">
+                                                <a href="{{ $delivery->twitter??"#" }}">
                                                     @Twitter
                                                 </a>
                                             </div>
@@ -853,7 +855,7 @@
                                                 <div class="fb-icon">
                                                     <svg class="finder-icon-facebook-standard" width="20px" height="20px" viewBox="0 0 24 24"><path fill="#999999" fill-rule="nonzero" d="M14.3 8.6V6.8v-.6l.3-.4.4-.3h3V2h-3.3c-1.9 0-3.2.4-4 1.1-.9.8-1.3 2-1.3 3.4v2H7V12h2.4v10h5V12h3.2l.4-3.4h-3.7z"></path></svg>
                                                 </div>
-                                                <a href="https://www.facebook.com/mydyrect">Facebook</a>
+                                                <a href="{{ $delivery->facebook??"#" }}">Facebook</a>
                                             </div>
 
 

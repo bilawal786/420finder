@@ -129,7 +129,7 @@
                                           <div class="index-rating" data-rating="{{ $totalratings }}"></div>
                                           <div class="reviewAvgCount">
                                               <span>{{ number_format($totalratings, 1) }}</span>
-                                              <span>({{ count($reviews) }})</span>
+                                              <span>({{ (count($reviews) + str_replace(',', '', $dispensary->reviews_count )) }})</span>
                                           </div>
                                       </div>
 

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
     @section('title', '420 Finder')
-    
+
     @section('content')
 
     <style>
@@ -90,7 +90,7 @@
 
     <section>
         <div class="container">
-            
+
             <div class="row topDeliveryRow">
                 <div class="col-md-2 text-center col-4 mb-4">
                     @if($dispensary->profile_picture == '')
@@ -99,7 +99,7 @@
                         <img src="{{ $dispensary->profile_picture }}" alt="" class="w-100 h-100 img-thumbnail">
                     @endif
                 </div>
-                
+
                 <div class="col-md-9 col-8">
                     <h3 class="retailerbnametext text-black-50"><strong>{{ $dispensary->business_name }}</strong></h3>
                     <?php
@@ -112,7 +112,7 @@
 
                                 $sum = 0;
                                 foreach ($reviews as $review) {
-                                    
+
                                     $sum = $sum + $review->rating;
 
                                 }
@@ -172,12 +172,12 @@
                                 ';
                             }
 
-                            echo " <span class='reviewCount'>(".$reviews->count().")</span>";
+                            echo " <span class='reviewCount'>(".($reviews->count() + str_replace(',', '', $dispensary->reviews_count )).")</span>";
 
                         ?>
                     </ul>
                     <p class="retailerbnametext">{{ $dispensary->city }}, {{ $dispensary->state_province }}</p>
-                    
+
                 </div>
             </div>
             <div class="row detailedBox">
@@ -190,7 +190,7 @@
                 </div>
                 <div class="col-md-3 col-6">
                     <ul class="list-unstyled">
-                        <li class="pb-2"><i class="fas fa-clock"></i> 
+                        <li class="pb-2"><i class="fas fa-clock"></i>
                             <?php
                                 if ($dispensary->opening_time >= date('h:i') OR $dispensary->closing_time <= date('h:i')) {
                                     echo "Open now!";
@@ -314,7 +314,7 @@
                                                     @if($brands->count() > 0)
                                                         @foreach($brands as $brand)
                                                         <li class="pb-3 pt-3 border-bottom sidebarRetailerBoxes">
-                                                            <img src="{{ $brand->logo }}" style="width: 50px;height: 50px;" class="img-thumbnail retailerBrandImage"> 
+                                                            <img src="{{ $brand->logo }}" style="width: 50px;height: 50px;" class="img-thumbnail retailerBrandImage">
                                                             <span>{{ $brand->name }}</span>
                                                         </li>
                                                         @endforeach
@@ -361,7 +361,7 @@
 
                                                                     $sum = 0;
                                                                     foreach ($reviews as $review) {
-                                                                        
+
                                                                         $sum = $sum + $review->rating;
 
                                                                     }
@@ -449,7 +449,7 @@
                                                             @endif
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
                                             @endforeach
@@ -483,7 +483,7 @@
 
                                                                     $sum = 0;
                                                                     foreach ($reviews as $review) {
-                                                                        
+
                                                                         $sum = $sum + $review->rating;
 
                                                                     }
@@ -547,7 +547,7 @@
 
                                                             ?>
                                                         </ul>
-                                                        
+
                                                     </div>
                                                     <div class="col-12 col-md-2">
                                                         <?php
@@ -585,19 +585,43 @@
                                     </div>
                                 </div>
                             </div>
-                                    
+
 
                         </div>
                         <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
                             <div class="row mt-5">
                                 <div class="col-md-6">
-                                    <h4 class="pb-4"><strong>Dispensary Name: </strong> {{ $dispensary->business_name }}</h4>
+                                    <div class="detail-about">
+                                        <h3 class="left-content-head">About Us</h3>
+                                        <div class="detail-about-content">
+                                            {!! $detail->about !!}
+                                        </div>
+                                    </div>
+                                    <div class="detail-customer">
+                                        <h3 class="left-content-head">First-Time Customers</h3>
+                                        <div class="detail-customer-content">
+                                            {!! $detail->customers !!}
+                                        </div>
+                                    </div>
+
+                                    <div class="detail-announcement">
+                                        <h3 class="left-content-head">Announcement</h3>
+                                        <div class="detail-announ-detail">
+                                            {!! $detail->announcement !!}
+                                            <div class="state-license">
+                                                <h5>State License</h5>
+                                                {!! $detail->license !!}
+                                            </div>
+
+                                        </div>
+                                    </div>
+<!--                                    <h4 class="pb-4"><strong>Dispensary Name: </strong> {{ $dispensary->business_name }}</h4>
                                     <p><strong>Postal Code: </strong> {{ $dispensary->postal_code }}</p>
                                     <p><strong>City: </strong> {{ $dispensary->city }}</p>
                                     <p><strong>State/Province: </strong> {{ $dispensary->state_province }}</p>
                                     <p><strong>Country: </strong> {{ $dispensary->country }}</p>
                                     <p><strong>License No. </strong> {{ $dispensary->license_number }}</p>
-                                    <p><strong>License Type: </strong> {{ $dispensary->license_type }}</p>
+                                    <p><strong>License Type: </strong> {{ $dispensary->license_type }}</p>-->
                                 </div>
                                 <div class="col-md-6">
                                     <div class="border">
@@ -711,7 +735,7 @@
                                                         <p>{{ $review->description }}</p>
                                                     </div>
                                                 </div>
-                                                        
+
                                             </div>
                                         </div>
                                     @endforeach
